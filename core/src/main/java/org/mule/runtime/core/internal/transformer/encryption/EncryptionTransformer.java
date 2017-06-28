@@ -11,7 +11,7 @@ import org.mule.runtime.core.api.security.CryptoFailureException;
 import java.io.InputStream;
 
 /**
- * <code>EncryptionTransformer</code> will transform an array of bytes or string into an encrypted array of bytes
+ * <code>EncryptionTransformer</code> will internalTransform an array of bytes or string into an encrypted array of bytes
  */
 public class EncryptionTransformer extends AbstractEncryptionTransformer {
 

@@ -124,12 +124,12 @@ public class Foreach extends AbstractMessageProcessorOwner implements Initialisa
     if (payload instanceof Document || payload.getClass().getName().startsWith("org.dom4j.")) {
       return message;
     } else {
-      return muleContext.getTransformationService().transform(message, DataType.fromType(Document.class));
+      return muleContext.getTransformationService().internalTransform(message, DataType.fromType(Document.class));
     }
   }
 
   private Message transformBack(Message message) throws TransformerException {
-    return muleContext.getTransformationService().transform(message, DataType.STRING);
+    return muleContext.getTransformationService().internalTransform(message, DataType.STRING);
   }
 
   @Override

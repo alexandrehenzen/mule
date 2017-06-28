@@ -7,7 +7,7 @@
 package org.mule.runtime.module.extension.internal.runtime.resolver;
 
 import org.mule.runtime.api.metadata.DataType;
-import org.mule.runtime.core.api.TransformationService;
+import org.mule.runtime.core.api.DefaultTransformationService;
 import org.mule.runtime.core.api.transformer.MessageTransformerException;
 import org.mule.runtime.core.api.transformer.TransformerException;
 import org.mule.runtime.core.exception.MessagingException;
@@ -19,16 +19,16 @@ import org.mule.runtime.core.exception.MessagingException;
  */
 public class TypeSafeTransformer {
 
-  private TransformationService transformationService;
+  private DefaultTransformationService transformationService;
 
-  public TypeSafeTransformer(TransformationService transformationService) {
+  public TypeSafeTransformer(DefaultTransformationService transformationService) {
     this.transformationService = transformationService;
   }
 
   /**
-   * Given a {@code value) it will try to transform it to the expected type defined in the {@code expectedDataType}
+   * Given a {@code value) it will try to internalTransform it to the expected type defined in the {@code expectedDataType}
    *
-   * @param value the value to transform
+   * @param value the value to internalTransform
    * @param valueDataType the value's {@link DataType}
    * @param expectedDataType the expected type's {@link DataType}
    * @param event the event to perform the transformation
@@ -40,8 +40,8 @@ public class TypeSafeTransformer {
   public <T> T transform(Object value, DataType valueDataType, DataType expectedDataType)
       throws MessagingException, MessageTransformerException, TransformerException {
 
-    //TODO review that event is not need but there was logic to use MessageTransform
-    return (T) transformationService.transform(value, valueDataType, expectedDataType);
+    // TODO review that event is not need but there was logic to use MessageTransform
+    return (T) transformationService.internalTransform(value, valueDataType, expectedDataType);
   }
 }
 

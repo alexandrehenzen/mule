@@ -36,7 +36,7 @@ import org.mule.runtime.api.scheduler.Scheduler;
 import org.mule.runtime.core.DefaultEventContext;
 import org.mule.runtime.core.api.Event;
 import org.mule.runtime.core.api.MuleContext;
-import org.mule.runtime.core.api.TransformationService;
+import org.mule.runtime.core.api.DefaultTransformationService;
 import org.mule.runtime.core.api.construct.FlowConstruct;
 import org.mule.runtime.core.api.processor.Processor;
 import org.mule.runtime.core.api.scheduler.SchedulerService;
@@ -96,7 +96,7 @@ public class AsynchronousUntilSuccessfulProcessingStrategyTestCase extends Abstr
   private CountDownLatch routeCountDownLatch;
   private MuleContext muleContext = mockContextWithServices();
   @Mock
-  private TransformationService transformationService;
+  private DefaultTransformationService transformationService;
 
   @Before
   public void setUp() throws Exception {
@@ -115,14 +115,14 @@ public class AsynchronousUntilSuccessfulProcessingStrategyTestCase extends Abstr
     configureDLQToReleaseLatchWhenExecuted();
     when(muleContext.getTransformationService()).thenReturn(transformationService);
     when(muleContext.getErrorTypeLocator()).thenReturn(mock(ErrorTypeLocator.class, RETURNS_DEEP_STUBS.get()));
-    when(transformationService.transform(any(InternalMessage.class), any(DataType.class))).thenAnswer(
-                                                                                                      invocation -> InternalMessage
-                                                                                                          .builder()
-                                                                                                          .payload(invocation
-                                                                                                              .getArguments()[0]
-                                                                                                                  .toString()
-                                                                                                                  .getBytes())
-                                                                                                          .build());
+    when(transformationService.internalTransform(any(InternalMessage.class), any(DataType.class))).thenAnswer(
+                                                                                                              invocation -> InternalMessage
+                                                                                                                  .builder()
+                                                                                                                  .payload(invocation
+                                                                                                                      .getArguments()[0]
+                                                                                                                          .toString()
+                                                                                                                          .getBytes())
+                                                                                                                  .build());
   }
 
   @After

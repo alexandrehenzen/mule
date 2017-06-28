@@ -147,8 +147,9 @@ public class TransformerUtils {
     } catch (TransformerException e) {
       if (LOGGER.isDebugEnabled()) {
         LOGGER.debug(
-                     String.format("Transformer %s threw exception while trying to transform an object of type %s into a %s",
-                                   transformer.getName(), sourceDataType.getType().getName(), resultDataType.getType().getName()),
+                     String
+                         .format("Transformer %s threw exception while trying to internalTransform an object of type %s into a %s",
+                                 transformer.getName(), sourceDataType.getType().getName(), resultDataType.getType().getName()),
                      e);
       }
 

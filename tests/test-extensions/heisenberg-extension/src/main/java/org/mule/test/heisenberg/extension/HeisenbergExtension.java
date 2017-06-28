@@ -67,7 +67,7 @@ import javax.inject.Inject;
 @ExternalLib(name = HeisenbergExtension.HEISENBERG_LIB_NAME, description = HeisenbergExtension.HEISENBERG_LIB_DESCRIPTION,
     fileName = HeisenbergExtension.HEISENBERG_LIB_FILE_NAME, requiredClassName = HeisenbergExtension.HEISENBERG_LIB_CLASS_NAME)
 @ErrorTypes(HeisenbergErrors.class)
-public class HeisenbergExtension implements Lifecycle, MuleContextAware {
+public class HeisenbergExtension implements Lifecycle {
 
   public static final String HEISENBERG = "Heisenberg";
   public static final String HEISENBERG_LIB_NAME = "Heisenberg.so";
@@ -91,9 +91,6 @@ public class HeisenbergExtension implements Lifecycle, MuleContextAware {
   private int stop = 0;
   private int dispose = 0;
   public static int sourceTimesStarted = 0;
-
-
-  private MuleContext muleContext;
 
   @Inject
   private ExtensionManager extensionManager;
@@ -291,15 +288,6 @@ public class HeisenbergExtension implements Lifecycle, MuleContextAware {
 
   public String getFirstEndevour() {
     return firstEndevour;
-  }
-
-  @Override
-  public void setMuleContext(MuleContext context) {
-    muleContext = context;
-  }
-
-  public MuleContext getMuleContext() {
-    return muleContext;
   }
 
   public Weapon getWeapon() {

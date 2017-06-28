@@ -66,13 +66,14 @@ public abstract class AbstractTransformerTestCase extends AbstractMuleContextTes
     // If null this is just a one way test
     if (roundTripTransformer != null) {
       Object result = roundTripTransformer.transform(this.getResultData());
-      assertNotNull("The result of the roundtrip transform shouldn't be null", result);
+      assertNotNull("The result of the roundtrip internalTransform shouldn't be null", result);
 
       final boolean match = this.compareRoundtripResults(this.getTestData(), result);
 
       if (!match) {
-        fail(String.format("The result of the roundtrip transform does not match expected result. Expected '%s', but got '%s'",
-                           this.getTestData(), result));
+        fail(String
+            .format("The result of the roundtrip internalTransform does not match expected result. Expected '%s', but got '%s'",
+                    this.getTestData(), result));
       }
     }
   }

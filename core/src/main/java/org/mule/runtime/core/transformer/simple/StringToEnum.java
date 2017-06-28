@@ -47,7 +47,8 @@ public class StringToEnum extends AbstractTransformer implements DiscoverableTra
     try {
       return Enum.valueOf(enumClass, ((String) src));
     } catch (Exception e) {
-      throw new TransformerException(createStaticMessage(format("Could not transform value '%s' to an enum of type %s", src,
+      throw new TransformerException(createStaticMessage(format("Could not internalTransform value '%s' to an enum of type %s",
+                                                                src,
                                                                 enumClass.getName())),
                                      e);
     }

@@ -72,7 +72,7 @@ public class MessageContext {
    * @throws TransformerException
    */
   public <T> T payloadAs(Class<T> type) throws TransformerException {
-    eventBuilder.message(muleContext.getTransformationService().transform(event.getMessage(), DataType.fromType(type)));
+    eventBuilder.message(muleContext.getTransformationService().internalTransform(event.getMessage(), DataType.fromType(type)));
     event = eventBuilder.build();
     return (T) event.getMessage().getPayload().getValue();
   }
@@ -80,12 +80,12 @@ public class MessageContext {
   /**
    * Obtains the payload of the current message transformed to the given #dataType.
    *
-   * @param dataType the DatType to transform the current message payload to
+   * @param dataType the DatType to internalTransform the current message payload to
    * @return the transformed payload
    * @throws TransformerException if there is an error during transformation
    */
   public Object payloadAs(DataType dataType) throws TransformerException {
-    eventBuilder.message(muleContext.getTransformationService().transform(event.getMessage(), dataType));
+    eventBuilder.message(muleContext.getTransformationService().internalTransform(event.getMessage(), dataType));
     event = eventBuilder.build();
     return event.getMessage().getPayload().getValue();
   }

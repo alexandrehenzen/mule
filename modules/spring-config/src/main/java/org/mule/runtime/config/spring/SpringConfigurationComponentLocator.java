@@ -11,7 +11,7 @@ import static java.util.stream.Collectors.toList;
 import org.mule.runtime.api.component.ComponentIdentifier;
 import org.mule.runtime.api.component.location.Location;
 import org.mule.runtime.api.meta.AnnotatedObject;
-import org.mule.runtime.core.api.locator.ConfigurationComponentLocator;
+import org.mule.runtime.api.component.location.ConfigurationComponentLocator;
 
 import java.util.List;
 import java.util.Map;

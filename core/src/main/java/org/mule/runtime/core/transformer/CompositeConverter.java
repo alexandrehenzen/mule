@@ -8,7 +8,7 @@ package org.mule.runtime.core.transformer;
 
 import org.mule.runtime.api.metadata.DataType;
 import org.mule.runtime.api.meta.AbstractAnnotatedObject;
-import org.mule.runtime.core.api.TransformationService;
+import org.mule.runtime.core.api.DefaultTransformationService;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.Event;
 import org.mule.runtime.api.exception.MuleException;
@@ -33,7 +33,7 @@ public class CompositeConverter extends AbstractAnnotatedObject implements Conve
   private String name;
 
   private LinkedList<Converter> chain;
-  private TransformationService transformationService;
+  private DefaultTransformationService transformationService;
 
   private MuleContext muleContext;
 

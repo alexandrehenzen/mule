@@ -28,7 +28,7 @@ import org.mule.runtime.core.DefaultEventContext;
 import org.mule.runtime.core.api.Event;
 import org.mule.runtime.core.api.Event.Builder;
 import org.mule.runtime.core.api.MuleContext;
-import org.mule.runtime.core.api.TransformationService;
+import org.mule.runtime.core.api.DefaultTransformationService;
 import org.mule.runtime.core.api.component.JavaComponent;
 import org.mule.runtime.core.api.config.ConfigurationBuilder;
 import org.mule.runtime.core.api.config.MuleConfiguration;
@@ -508,7 +508,7 @@ public abstract class AbstractMuleContextTestCase extends AbstractMuleTestCase {
   }
 
   /**
-   * Uses {@link TransformationService} to get a {@link String} representation of a message.
+   * Uses {@link DefaultTransformationService} to get a {@link String} representation of a message.
    *
    * @param message message to get payload from
    * @return String representation of the message payload
@@ -519,7 +519,7 @@ public abstract class AbstractMuleContextTestCase extends AbstractMuleTestCase {
   }
 
   /**
-   * Uses {@link TransformationService} to get byte[] representation of a message.
+   * Uses {@link DefaultTransformationService} to get byte[] representation of a message.
    *
    * @param message message to get payload from
    * @return byte[] representation of the message payload
@@ -530,7 +530,7 @@ public abstract class AbstractMuleContextTestCase extends AbstractMuleTestCase {
   }
 
   /**
-   * Uses {@link TransformationService} to get representation of a message for a given {@link DataType}
+   * Uses {@link DefaultTransformationService} to get representation of a message for a given {@link DataType}
    *
    * @param message message to get payload from
    * @param dataType dataType to be transformed to
@@ -538,11 +538,11 @@ public abstract class AbstractMuleContextTestCase extends AbstractMuleTestCase {
    * @throws Exception if there is an unexpected error obtaining the payload representation
    */
   protected Object getPayload(Message message, DataType dataType) throws Exception {
-    return muleContext.getTransformationService().transform(message, dataType).getPayload().getValue();
+    return muleContext.getTransformationService().internalTransform(message, dataType).getPayload().getValue();
   }
 
   /**
-   * Uses {@link TransformationService} to get representation of a message for a given {@link Class}
+   * Uses {@link DefaultTransformationService} to get representation of a message for a given {@link Class}
    *
    * @param message message to get payload from
    * @param clazz type of the payload to be transformed to

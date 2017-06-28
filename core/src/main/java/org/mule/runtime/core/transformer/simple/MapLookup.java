@@ -38,7 +38,7 @@ public class MapLookup extends AbstractTransformer {
       }
     } else {
       throw new TransformerException(I18nMessageFactory
-          .createStaticMessage("Message to transform must be of type java.util.Map"));
+          .createStaticMessage("Message to internalTransform must be of type java.util.Map"));
     }
   }
 

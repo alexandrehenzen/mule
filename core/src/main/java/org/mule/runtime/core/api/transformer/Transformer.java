@@ -61,7 +61,7 @@ public interface Transformer extends Processor, Initialisable, Disposable, Namea
   /**
    * Transforms the supplied data and returns the result
    *
-   * @param src the data to transform
+   * @param src the data to internalTransform
    * @return the transformed data
    * @throws TransformerException if a error occurs transforming the data or if the expected returnClass isn't the same as the
    *         transformed data
@@ -71,7 +71,7 @@ public interface Transformer extends Processor, Initialisable, Disposable, Namea
   /**
    * Transforms the supplied data and returns the result
    *
-   * @param src the data to transform
+   * @param src the data to internalTransform
    * @param encoding the encoding to use by this transformer. many transformations will not need encoding unless dealing with text
    *        so you only need to use this method if yo wish to customize the encoding
    * @return the transformed data
@@ -91,8 +91,8 @@ public interface Transformer extends Processor, Initialisable, Disposable, Namea
 
   /**
    * Specifies the return type of the result after this transformer has been executed. Mule will use this to validate the return
-   * type but also allow users to perform automatic transformations based on the source type of the object to transform and this
-   * return type.
+   * type but also allow users to perform automatic transformations based on the source type of the object to internalTransform
+   * and this return type.
    *
    * @return the excepted return type for this transformer
    * @since 3.0.0

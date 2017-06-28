@@ -12,17 +12,23 @@ import static org.mule.runtime.api.i18n.I18nMessageFactory.createStaticMessage;
 import static org.mule.runtime.api.metadata.MediaType.ANY;
 import static org.mule.runtime.core.api.util.SystemUtils.getDefaultEncoding;
 import org.mule.runtime.api.exception.MuleException;
+import org.mule.runtime.api.exception.MuleRuntimeException;
 import org.mule.runtime.api.message.Message;
 import org.mule.runtime.api.metadata.DataType;
 import org.mule.runtime.api.metadata.MediaType;
+import org.mule.runtime.api.transformation.TransformationService;
+import org.mule.runtime.core.api.config.i18n.CoreMessages;
 import org.mule.runtime.core.api.transformer.Converter;
 import org.mule.runtime.core.api.transformer.MessageTransformer;
 import org.mule.runtime.core.api.transformer.MessageTransformerException;
 import org.mule.runtime.core.api.transformer.Transformer;
 import org.mule.runtime.core.api.transformer.TransformerException;
-import org.mule.runtime.core.api.config.i18n.CoreMessages;
+import org.mule.runtime.core.api.util.func.CheckedSupplier;
 import org.mule.runtime.core.exception.MessagingException;
 import org.mule.runtime.core.transformer.TransformerUtils;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -30,29 +36,26 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Provides the same operations previously exposed by {@link Message} but decoupled from Message.
  *
  * TODO Redefine this interface as part of Mule 4.0 transformation improvements (MULE-9141)
  */
-public class TransformationService {
+public class DefaultTransformationService implements TransformationService {
 
-  private static final Logger logger = LoggerFactory.getLogger(TransformationService.class);
+  private static final Logger logger = LoggerFactory.getLogger(DefaultTransformationService.class);
 
   private MuleContext muleContext;
 
   @Inject
-  public TransformationService(MuleContext muleContext) {
+  public DefaultTransformationService(MuleContext muleContext) {
     this.muleContext = muleContext;
   }
 
   /**
-   * Given a {@code value) it will try to transform it to the expected type defined in the {@code expectedDataType}
+   * Given a {@code value) it will try to internalTransform it to the expected type defined in the {@code expectedDataType}
    *
-   * @param value the value to transform
+   * @param value the value to internalTransform
    * @param valueDataType the value's {@link DataType}
    * @param expectedDataType the expected type's {@link DataType}
    * @param event the event to perform the transformation
@@ -61,7 +64,7 @@ public class TransformationService {
    * @throws MessageTransformerException If a problem occurs transforming the value
    * @throws TransformerException If a problem occurs transforming the value
    */
-  public Object transform(Object value, DataType valueDataType, DataType expectedDataType)
+  public Object internalTransform(Object value, DataType valueDataType, DataType expectedDataType)
       throws MessagingException, MessageTransformerException, TransformerException {
     Transformer transformer;
     if (value != null) {
@@ -131,7 +134,7 @@ public class TransformationService {
    *         payload is an InputStream in which case the stream will be read and the payload will become the fully read stream.
    * @throws TransformerException if a transformer cannot be found or there is an error during transformation of the payload
    */
-  public Message transform(Message message, DataType outputDataType) throws TransformerException {
+  public Message internalTransform(Message message, DataType outputDataType) throws TransformerException {
     checkNotNull(message, "Message cannot be null");
     checkNotNull(outputDataType, "DataType cannot be null");
 
@@ -189,7 +192,7 @@ public class TransformationService {
 
         if (transformer.isSourceDataTypeSupported(originalSourceType)) {
           if (logger.isDebugEnabled()) {
-            logger.debug("Using " + transformer + " to transform payload.");
+            logger.debug("Using " + transformer + " to internalTransform payload.");
           }
           result = transformMessage(result, event, transformer);
         } else {
@@ -319,4 +322,23 @@ public class TransformationService {
     return (T) result;
   }
 
+  @Override
+  public Object transform(Object value, DataType valueDataType, DataType expectedDataType) {
+    return transformThrowingRuntimeException(() -> this.internalTransform(value, valueDataType, expectedDataType));
+  }
+
+  @Override
+  public Message transform(Message message, DataType outputDataType) {
+    return transformThrowingRuntimeException(() -> this.internalTransform(message, outputDataType));
+  }
+
+  private <T> T transformThrowingRuntimeException(CheckedSupplier<T> supplier) {
+    try {
+      return supplier.get();
+    } catch (RuntimeException e) {
+      throw e;
+    } catch (Exception e) {
+      throw new MuleRuntimeException(e);
+    }
+  }
 }

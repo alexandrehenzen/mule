@@ -27,10 +27,10 @@ import java.nio.charset.Charset;
 
 /**
  * <code>AbstractMessageTransformer</code> is a transformer that has a reference to the current message. This message can be used
- * to obtain properties associated with the current message which are useful to the transform. Note that when part of a transform
- * chain, the Message payload reflects the pre-transform message state, unless there is no current event for this thread, then the
- * message will be a new {@link Message} with the src as its payload. Transformers should always work on the src object not the
- * message payload.
+ * to obtain properties associated with the current message which are useful to the internalTransform. Note that when part of a
+ * internalTransform chain, the Message payload reflects the pre-internalTransform message state, unless there is no current event
+ * for this thread, then the message will be a new {@link Message} with the src as its payload. Transformers should always work on
+ * the src object not the message payload.
  *
  * @see InternalMessage
  */
@@ -51,7 +51,7 @@ public abstract class AbstractMessageTransformer extends AbstractTransformer imp
   }
 
   /**
-   * Perform a non-message aware transform. This should never be called
+   * Perform a non-message aware internalTransform. This should never be called
    */
   @Override
   public final Object doTransform(Object src, Charset enc) throws TransformerException {
@@ -99,7 +99,7 @@ public abstract class AbstractMessageTransformer extends AbstractTransformer imp
     }
     if (logger.isDebugEnabled()) {
       logger.debug(String.format("Applying transformer %s (%s)", getName(), getClass().getName()));
-      logger.debug(String.format("Object before transform: %s", StringMessageUtils.toString(src)));
+      logger.debug(String.format("Object before internalTransform: %s", StringMessageUtils.toString(src)));
     }
 
     Message message;
@@ -135,7 +135,7 @@ public abstract class AbstractMessageTransformer extends AbstractTransformer imp
     }
 
     if (logger.isDebugEnabled()) {
-      logger.debug(String.format("Object after transform: %s", StringMessageUtils.toString(result)));
+      logger.debug(String.format("Object after internalTransform: %s", StringMessageUtils.toString(result)));
     }
 
     result = checkReturnClass(result, event);

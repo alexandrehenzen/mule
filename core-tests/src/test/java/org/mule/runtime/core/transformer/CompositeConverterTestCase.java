@@ -23,7 +23,7 @@ import org.mule.runtime.api.message.Message;
 import org.mule.runtime.api.metadata.DataType;
 import org.mule.runtime.core.api.Event;
 import org.mule.runtime.core.api.MuleContext;
-import org.mule.runtime.core.api.TransformationService;
+import org.mule.runtime.core.api.DefaultTransformationService;
 import org.mule.runtime.core.api.transformer.Converter;
 import org.mule.tck.junit4.AbstractMuleTestCase;
 import org.mule.tck.size.SmallTest;
@@ -160,7 +160,7 @@ public class CompositeConverterTestCase extends AbstractMuleTestCase {
     MuleContext muleContext = mock(MuleContext.class, RETURNS_DEEP_STUBS);
     compositeConverter.setMuleContext(muleContext);
     final Event event = testEvent();
-    TransformationService transformationService = mock(TransformationService.class);
+    DefaultTransformationService transformationService = mock(DefaultTransformationService.class);
     doReturn(mock(Message.class)).when(transformationService).applyTransformers(any(), eq(event), eq(compositeConverter));
     doReturn(transformationService).when(muleContext).getTransformationService();
 

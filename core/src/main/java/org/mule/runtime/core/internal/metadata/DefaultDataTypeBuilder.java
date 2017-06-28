@@ -540,7 +540,7 @@ public class DefaultDataTypeBuilder
 
   static {
     addToConsumableClasses("javax.xml.stream.XMLStreamReader");
-    addToConsumableClasses("javax.xml.transform.stream.StreamSource");
+    addToConsumableClasses("javax.xml.internalTransform.stream.StreamSource");
     consumableClasses.add(OutputHandler.class);
     consumableClasses.add(InputStream.class);
     consumableClasses.add(Reader.class);

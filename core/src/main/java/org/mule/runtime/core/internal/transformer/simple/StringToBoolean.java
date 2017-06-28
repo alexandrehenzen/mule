@@ -45,7 +45,7 @@ public class StringToBoolean extends AbstractTransformer implements Discoverable
       if (isAllowNullReturn()) {
         return null;
       } else {
-        throw new TransformerException(createStaticMessage("Unable to transform null to a primitive"));
+        throw new TransformerException(createStaticMessage("Unable to internalTransform null to a primitive"));
       }
     } else {
       String value = ((String) src).toLowerCase().trim();
@@ -53,7 +53,7 @@ public class StringToBoolean extends AbstractTransformer implements Discoverable
       if (transformed != null) {
         return transformed;
       } else {
-        throw new TransformerException(createStaticMessage(format("Cannot transform String '%s' to boolean. Valid types are: [%s]",
+        throw new TransformerException(createStaticMessage(format("Cannot internalTransform String '%s' to boolean. Valid types are: [%s]",
                                                                   value, Joiner.on(", ").join(MAPPING.keySet()))));
       }
     }

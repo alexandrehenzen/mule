@@ -12,7 +12,7 @@ package org.mule.tck.junit4.rule;
 public class ForceXalanTransformerFactory extends SystemProperty {
 
   public ForceXalanTransformerFactory() {
-    super("javax.xml.transform.TransformerFactory", "org.apache.xalan.processor.TransformerFactoryImpl");
+    super("javax.xml.internalTransform.TransformerFactory", "org.apache.xalan.processor.TransformerFactoryImpl");
   }
 
 }

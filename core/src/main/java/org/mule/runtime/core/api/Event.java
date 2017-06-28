@@ -135,7 +135,7 @@ public interface Event extends Serializable {
    * @param muleContext the Mule node.
    * @return the message transformed into it's recognized or expected format.
    * @throws TransformerException if a failure occurs in the transformer
-   * @see org.mule.runtime.core.api.transformer.Transformer if the transform fails or the outputtype is null
+   * @see org.mule.runtime.core.api.transformer.Transformer if the internalTransform fails or the outputtype is null
    * @deprecated TODO MULE-10013 Move message serialization logic from within the message to an external service
    */
   @Deprecated
@@ -149,7 +149,7 @@ public interface Event extends Serializable {
    * @param muleContext the Mule node.
    * @return the message transformed into it's recognized or expected format.
    * @throws TransformerException if a failure occurs in the transformer
-   * @see org.mule.runtime.core.api.transformer.Transformer if the transform fails or the outputtype is null
+   * @see org.mule.runtime.core.api.transformer.Transformer if the internalTransform fails or the outputtype is null
    * @deprecated TODO MULE-10013 Move message serialization logic from within the message to an external service
    */
   @Deprecated

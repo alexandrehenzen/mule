@@ -32,8 +32,6 @@ import org.mule.runtime.core.api.security.SecurityContext;
 import org.mule.runtime.core.api.transformer.TransformerException;
 import org.mule.runtime.core.api.config.i18n.CoreMessages;
 import org.mule.runtime.core.internal.context.notification.DefaultFlowCallStack;
-import org.mule.runtime.core.internal.message.DefaultMessageBuilder;
-import org.mule.runtime.core.internal.message.InternalMessage;
 import org.mule.runtime.core.api.session.DefaultMuleSession;
 import org.mule.runtime.core.internal.util.CopyOnWriteCaseInsensitiveMap;
 import org.mule.runtime.core.util.store.DeserializationPostInitialisable;
@@ -336,7 +334,7 @@ public class DefaultEventBuilder implements Event.Builder {
         throw new TransformerException(CoreMessages.objectIsNull("outputType"));
       }
 
-      Message transformedMessage = muleContext.getTransformationService().transform(message, outputType);
+      Message transformedMessage = muleContext.getTransformationService().internalTransform(message, outputType);
       if (message.getPayload().getDataType().isStreamType()) {
         setMessage(transformedMessage);
       }
@@ -375,7 +373,7 @@ public class DefaultEventBuilder implements Event.Builder {
     public String getMessageAsString(Charset encoding, MuleContext muleContext) throws MuleException {
       try {
         Message transformedMessage = muleContext.getTransformationService()
-            .transform(message, DataType.builder().type(String.class).charset(encoding).build());
+            .internalTransform(message, DataType.builder().type(String.class).charset(encoding).build());
         if (message.getPayload().getDataType().isStreamType()) {
           setMessage(transformedMessage);
         }

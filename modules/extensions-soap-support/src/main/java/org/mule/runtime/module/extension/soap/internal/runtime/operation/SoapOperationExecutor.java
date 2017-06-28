@@ -22,7 +22,7 @@ import org.mule.runtime.api.el.MuleExpressionLanguage;
 import org.mule.runtime.api.meta.model.operation.OperationModel;
 import org.mule.runtime.api.metadata.DataType;
 import org.mule.runtime.api.metadata.TypedValue;
-import org.mule.runtime.core.api.TransformationService;
+import org.mule.runtime.core.api.DefaultTransformationService;
 import org.mule.runtime.core.api.transformer.MessageTransformerException;
 import org.mule.runtime.core.api.transformer.TransformerException;
 import org.mule.runtime.core.api.util.IOUtils;
@@ -58,7 +58,7 @@ public final class SoapOperationExecutor implements OperationExecutor {
   private MuleExpressionLanguage expressionExecutor;
 
   @Inject
-  private TransformationService transformationService;
+  private DefaultTransformationService transformationService;
 
   private final ConnectionArgumentResolver connectionResolver = new ConnectionArgumentResolver();
   private final SoapExceptionEnricher soapExceptionEnricher = new SoapExceptionEnricher();
@@ -156,6 +156,6 @@ public final class SoapOperationExecutor implements OperationExecutor {
     if (value instanceof InputStream) {
       return (InputStream) value;
     }
-    return (InputStream) transformationService.transform(value, DataType.fromObject(value), INPUT_STREAM);
+    return (InputStream) transformationService.internalTransform(value, DataType.fromObject(value), INPUT_STREAM);
   }
 }

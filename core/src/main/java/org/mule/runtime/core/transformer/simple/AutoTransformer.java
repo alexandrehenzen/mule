@@ -16,9 +16,9 @@ import org.mule.runtime.core.transformer.AbstractMessageTransformer;
 import java.nio.charset.Charset;
 
 /**
- * A transformer that uses the transform discovery mechanism to convert the message payload. This transformer works much better
- * when transforming custom object types rather that java types since there is less chance for ambiguity. If an exact match cannot
- * be made an execption will be thrown.
+ * A transformer that uses the internalTransform discovery mechanism to convert the message payload. This transformer works much
+ * better when transforming custom object types rather that java types since there is less chance for ambiguity. If an exact match
+ * cannot be made an execption will be thrown.
  */
 public class AutoTransformer extends AbstractMessageTransformer {
 
@@ -38,7 +38,8 @@ public class AutoTransformer extends AbstractMessageTransformer {
 
   @Override
   public Object transformMessage(Event event, Charset outputEncoding) throws TransformerException {
-    return muleContext.getTransformationService().transform(event.getMessage(), DataType.fromType(getReturnDataType().getType()))
+    return muleContext.getTransformationService()
+        .internalTransform(event.getMessage(), DataType.fromType(getReturnDataType().getType()))
         .getPayload().getValue();
   }
 }

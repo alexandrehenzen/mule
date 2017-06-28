@@ -34,7 +34,7 @@ import org.mule.runtime.api.metadata.resolving.MetadataResult;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.config.ConfigurationInstanceNotification;
 import org.mule.runtime.core.api.context.notification.CustomNotificationListener;
-import org.mule.runtime.core.api.locator.ConfigurationComponentLocator;
+import org.mule.runtime.api.component.location.ConfigurationComponentLocator;
 import org.mule.runtime.core.api.context.notification.NotificationException;
 
 import com.google.common.cache.CacheBuilder;

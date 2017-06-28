@@ -191,7 +191,7 @@ public class FineGrainedControlClassLoader extends URLClassLoader
 
     try {
       // fix groovy compiler leaks http://www.mulesoft.org/jira/browse/MULE-5125
-      final Class clazz = ClassUtils.loadClass("org.codehaus.groovy.transform.ASTTransformationVisitor", getClass());
+      final Class clazz = ClassUtils.loadClass("org.codehaus.groovy.internalTransform.ASTTransformationVisitor", getClass());
       final Field compUnit = clazz.getDeclaredField("compUnit");
       compUnit.setAccessible(true);
       // static field

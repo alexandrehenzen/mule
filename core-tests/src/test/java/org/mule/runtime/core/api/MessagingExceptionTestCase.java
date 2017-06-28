@@ -81,7 +81,7 @@ public class MessagingExceptionTestCase extends AbstractMuleContextTestCase {
   private FlowConstruct flowConstruct;
 
   @Mock
-  private TransformationService transformationService;
+  private DefaultTransformationService transformationService;
 
   @Before
   public void before() throws MuleException {
@@ -345,7 +345,7 @@ public class MessagingExceptionTestCase extends AbstractMuleContextTestCase {
     when(payload.toString()).then(new FailAnswer("toString() expected not to be called."));
     Message muleMessage = of(payload);
 
-    when(transformationService.transform(muleMessage, DataType.STRING)).thenReturn(of(value));
+    when(transformationService.internalTransform(muleMessage, DataType.STRING)).thenReturn(of(value));
     when(testEvent.getMessage()).thenReturn(muleMessage);
     MessagingException e = new MessagingException(I18nMessageFactory.createStaticMessage(message), testEvent);
 
@@ -364,7 +364,7 @@ public class MessagingExceptionTestCase extends AbstractMuleContextTestCase {
 
     assertThat((String) e.getInfo().get(PAYLOAD_INFO_KEY), containsString(ByteArrayInputStream.class.getName() + "@"));
 
-    verify(transformationService, never()).transform(muleMessage, DataType.STRING);
+    verify(transformationService, never()).internalTransform(muleMessage, DataType.STRING);
   }
 
   @Test
@@ -378,7 +378,7 @@ public class MessagingExceptionTestCase extends AbstractMuleContextTestCase {
     when(payload.toString()).then(new FailAnswer("toString() expected not to be called."));
     Message muleMessage = of(payload);
 
-    when(transformationService.transform(muleMessage, DataType.STRING))
+    when(transformationService.internalTransform(muleMessage, DataType.STRING))
         .thenThrow(new TransformerException(CoreMessages.createStaticMessage("exception thrown")));
     when(testEvent.getMessage()).thenReturn(muleMessage);
     MessagingException e = new MessagingException(I18nMessageFactory.createStaticMessage(message), testEvent);
@@ -399,7 +399,7 @@ public class MessagingExceptionTestCase extends AbstractMuleContextTestCase {
     assertThat(e.getInfo().get(PAYLOAD_INFO_KEY), nullValue());
 
     verify(muleMessage, never()).getPayload();
-    verify(transformationService, never()).transform(muleMessage, DataType.STRING);
+    verify(transformationService, never()).internalTransform(muleMessage, DataType.STRING);
   }
 
   private static final class FailAnswer implements Answer<String> {

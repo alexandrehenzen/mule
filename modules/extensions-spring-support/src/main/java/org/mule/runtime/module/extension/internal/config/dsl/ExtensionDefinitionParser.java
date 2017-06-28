@@ -167,8 +167,8 @@ public abstract class ExtensionDefinitionParser {
    * Creates a new instance
    *
    * @param baseDefinitionBuilder a {@link Builder} used as a prototype to generate new definitions
-   * @param dslSyntaxResolver     a {@link DslSyntaxResolver} instance associated with the {@link ExtensionModel} being parsed
-   * @param parsingContext        the {@link ExtensionParsingContext} in which {@code this} parser operates
+   * @param dslSyntaxResolver a {@link DslSyntaxResolver} instance associated with the {@link ExtensionModel} being parsed
+   * @param parsingContext the {@link ExtensionParsingContext} in which {@code this} parser operates
    */
   protected ExtensionDefinitionParser(Builder baseDefinitionBuilder, DslSyntaxResolver dslSyntaxResolver,
                                       ExtensionParsingContext parsingContext) {
@@ -541,12 +541,12 @@ public abstract class ExtensionDefinitionParser {
   /**
    * Registers a definition for a {@link ParameterModel} which represents an {@link ArrayType}
    *
-   * @param key               the key that the parsed value should have on the parsed parameter's map
-   * @param name              the parameter's name
-   * @param arrayType         the parameter's {@link ArrayType}
-   * @param defaultValue      the parameter's default value
+   * @param key the key that the parsed value should have on the parsed parameter's map
+   * @param name the parameter's name
+   * @param arrayType the parameter's {@link ArrayType}
+   * @param defaultValue the parameter's default value
    * @param expressionSupport the parameter's {@link ExpressionSupport}
-   * @param required          whether the parameter is required
+   * @param required whether the parameter is required
    */
   protected void parseCollectionParameter(String key, String name, ArrayType arrayType, Object defaultValue,
                                           ExpressionSupport expressionSupport, boolean required, DslElementSyntax parameterDsl,
@@ -804,12 +804,12 @@ public abstract class ExtensionDefinitionParser {
   /**
    * Registers a definition for parsing the given {@code parameterModel} as an element attribute
    *
-   * @param key               the key that the parsed value should have on the parsed parameter's map
-   * @param name              the parameter's name
-   * @param type              the parameter's type
-   * @param defaultValue      the parameter's default value
+   * @param key the key that the parsed value should have on the parsed parameter's map
+   * @param name the parameter's name
+   * @param type the parameter's type
+   * @param defaultValue the parameter's default value
    * @param expressionSupport the parameter's {@link ExpressionSupport}
-   * @param required          whether the parameter is required or not
+   * @param required whether the parameter is required or not
    * @return an {@link AttributeDefinition.Builder}
    */
   protected AttributeDefinition.Builder parseAttributeParameter(String key, String name, MetadataType type, Object defaultValue,
@@ -857,13 +857,13 @@ public abstract class ExtensionDefinitionParser {
   /**
    * Registers a definition for a {@link ParameterModel} which represents an {@link ObjectType}
    *
-   * @param key               the key that the parsed value should have on the parsed parameter's map
-   * @param name              the parameter's name
-   * @param type              an {@link ObjectType}
-   * @param defaultValue      the parameter's default value
+   * @param key the key that the parsed value should have on the parsed parameter's map
+   * @param name the parameter's name
+   * @param type an {@link ObjectType}
+   * @param defaultValue the parameter's default value
    * @param expressionSupport the parameter's {@link ExpressionSupport}
-   * @param required          whether the parameter is required or not
-   * @param modelProperties   parameter's {@link ModelProperty}s
+   * @param required whether the parameter is required or not
+   * @param modelProperties parameter's {@link ModelProperty}s
    */
   protected void parseObjectParameter(String key, String name, ObjectType type, Object defaultValue,
                                       ExpressionSupport expressionSupport, boolean required,
@@ -991,7 +991,7 @@ public abstract class ExtensionDefinitionParser {
       return new StaticValueResolver<>(value);
     }
 
-    throw new IllegalArgumentException(format("Could not transform value of type '%s' to a valid date type",
+    throw new IllegalArgumentException(format("Could not internalTransform value of type '%s' to a valid date type",
                                               value != null ? value.getClass().getName() : "null"));
   }
 
@@ -1033,7 +1033,8 @@ public abstract class ExtensionDefinitionParser {
     try {
       return conversionService.convert(value, expectedClass);
     } catch (Exception e) {
-      throw new IllegalArgumentException(format("Could not transform simple value '%s' to type '%s' in parameter '%s'", value,
+      throw new IllegalArgumentException(format("Could not internalTransform simple value '%s' to type '%s' in parameter '%s'",
+                                                value,
                                                 expectedClass.getSimpleName(), parameterName));
     }
   }

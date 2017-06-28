@@ -260,7 +260,7 @@ public class DefaultMuleConfiguration implements MuleConfiguration, MuleContextA
     if (p != null) {
       enableStreaming = BooleanUtils.toBoolean(p);
     }
-    p = System.getProperty(MuleProperties.SYSTEM_PROPERTY_PREFIX + "transform.autoWrap");
+    p = System.getProperty(MuleProperties.SYSTEM_PROPERTY_PREFIX + "internalTransform.autoWrap");
     if (p != null) {
       autoWrapMessageAwareTransform = BooleanUtils.toBoolean(p);
     }

@@ -38,10 +38,9 @@ import java.util.Optional;
  * Contains the logic for taking an operation's output value and turn it into a {@link Message} which not only contains the
  * updated payload but also the proper {@link DataType} and attributes.
  * <p>
- * It also consider the case in which the value is a {@code List<Result>} which should be turned into a {@code List<Message>}.
- * For any of this cases, it also allows specifying a {@link CursorProviderFactory} which will transform the streaming payload
- * values into {@link CursorProvider} instances. As said before, this is also applied then the value is a message or list of
- * them
+ * It also consider the case in which the value is a {@code List<Result>} which should be turned into a {@code List<Message>}. For
+ * any of this cases, it also allows specifying a {@link CursorProviderFactory} which will internalTransform the streaming payload
+ * values into {@link CursorProvider} instances. As said before, this is also applied then the value is a message or list of them
  *
  * @since 4.0
  */
@@ -54,9 +53,10 @@ abstract class AbstractReturnDelegate implements ReturnDelegate {
   /**
    * Creates a new instance
    *
-   * @param componentModel        the component which produces the return value
-   * @param cursorProviderFactory the {@link CursorProviderFactory} to use when a message is doing cursor based streaming. Can be {@code null}
-   * @param muleContext           the {@link MuleContext} of the owning application
+   * @param componentModel the component which produces the return value
+   * @param cursorProviderFactory the {@link CursorProviderFactory} to use when a message is doing cursor based streaming. Can be
+   *        {@code null}
+   * @param muleContext the {@link MuleContext} of the owning application
    */
   protected AbstractReturnDelegate(ComponentModel componentModel,
                                    CursorProviderFactory cursorProviderFactory,

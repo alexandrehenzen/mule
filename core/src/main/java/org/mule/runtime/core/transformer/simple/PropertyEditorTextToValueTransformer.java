@@ -15,8 +15,8 @@ import java.beans.PropertyEditor;
 import java.nio.charset.Charset;
 
 /**
- * <code>PropertyEditorTextToValueTransformer</code> adapts a {@link PropertyEditor} instance allowing it to be used to transform
- * from a String to another type in Mule
+ * <code>PropertyEditorTextToValueTransformer</code> adapts a {@link PropertyEditor} instance allowing it to be used to
+ * internalTransform from a String to another type in Mule
  */
 public class PropertyEditorTextToValueTransformer extends AbstractTransformer implements DiscoverableTransformer {
 

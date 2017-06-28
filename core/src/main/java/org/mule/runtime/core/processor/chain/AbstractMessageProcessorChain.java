@@ -127,7 +127,7 @@ public abstract class AbstractMessageProcessorChain extends AbstractAnnotatedObj
   private ReactiveProcessor applyInterceptors(List<BiFunction<Processor, ReactiveProcessor, ReactiveProcessor>> interceptorsToBeExecuted,
                                               Processor processor) {
     ReactiveProcessor interceptorWrapperProcessorFunction = processor;
-    // Take processor publisher function itself and transform it by applying interceptor transformations onto it.
+    // Take processor publisher function itself and internalTransform it by applying interceptor transformations onto it.
     for (BiFunction<Processor, ReactiveProcessor, ReactiveProcessor> interceptor : interceptorsToBeExecuted) {
       interceptorWrapperProcessorFunction = interceptor.apply(processor, interceptorWrapperProcessorFunction);
     }

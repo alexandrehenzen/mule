@@ -36,7 +36,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <code>AbstractTransformer</code> is a base class for all transformers. Transformations transform one object into another.
+ * <code>AbstractTransformer</code> is a base class for all transformers. Transformations internalTransform one object into
+ * another.
  */
 
 public abstract class AbstractTransformer extends AbstractAnnotatedObject implements Transformer {
@@ -244,13 +245,13 @@ public abstract class AbstractTransformer extends AbstractAnnotatedObject implem
 
     if (logger.isDebugEnabled()) {
       logger.debug(String.format("Applying transformer %s (%s)", getName(), getClass().getName()));
-      logger.debug(String.format("Object before transform: %s", StringMessageUtils.toString(payload)));
+      logger.debug(String.format("Object before internalTransform: %s", StringMessageUtils.toString(payload)));
     }
 
     Object result = doTransform(payload, enc);
 
     if (logger.isDebugEnabled()) {
-      logger.debug(String.format("Object after transform: %s", StringMessageUtils.toString(result)));
+      logger.debug(String.format("Object after internalTransform: %s", StringMessageUtils.toString(result)));
     }
 
     TransformerUtils.checkTransformerReturnClass(this, result);

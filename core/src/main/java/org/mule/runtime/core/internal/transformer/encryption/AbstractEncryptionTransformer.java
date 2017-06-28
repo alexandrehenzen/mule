@@ -22,7 +22,7 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 
 /**
- * <code>EncryptionTransformer</code> will transform an array of bytes or string into an encrypted array of bytes
+ * <code>EncryptionTransformer</code> will internalTransform an array of bytes or string into an encrypted array of bytes
  *
  */
 public abstract class AbstractEncryptionTransformer extends AbstractTransformer implements MuleContextAware {

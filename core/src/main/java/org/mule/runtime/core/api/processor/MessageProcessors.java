@@ -104,7 +104,7 @@ public class MessageProcessors {
    * for response {@link Event} or throwing an {@link MuleException} in the case of an error.
    * <p/>
    * A plain {@link ReactiveProcessor} does not handle {@link EventContext} completion or error handling so this method simply
-   * uses {@code just(event).transform(processor).block();}
+   * uses {@code just(event).internalTransform(processor).block();}
    *
    * @param event event to process.
    * @param processor processor to adapt.

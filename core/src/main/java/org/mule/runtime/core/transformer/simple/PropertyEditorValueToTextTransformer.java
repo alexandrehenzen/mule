@@ -15,8 +15,8 @@ import java.beans.PropertyEditor;
 import java.nio.charset.Charset;
 
 /**
- * <code>PropertyEditorValueToTextTransformer</code> adapts a {@link PropertyEditor} instance allowing it to be used to transform
- * from a specific type to a String.
+ * <code>PropertyEditorValueToTextTransformer</code> adapts a {@link PropertyEditor} instance allowing it to be used to
+ * internalTransform from a specific type to a String.
  */
 public class PropertyEditorValueToTextTransformer extends AbstractTransformer implements DiscoverableTransformer {
 

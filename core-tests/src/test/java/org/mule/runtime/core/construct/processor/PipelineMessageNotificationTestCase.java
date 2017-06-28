@@ -34,7 +34,7 @@ import org.mule.runtime.core.DefaultEventContext;
 import org.mule.runtime.core.api.Event;
 import org.mule.runtime.core.api.EventContext;
 import org.mule.runtime.core.api.MuleContext;
-import org.mule.runtime.core.api.TransformationService;
+import org.mule.runtime.core.api.DefaultTransformationService;
 import org.mule.runtime.core.api.context.notification.EnrichedServerNotification;
 import org.mule.runtime.core.api.processor.MessageProcessorChainBuilder;
 import org.mule.runtime.core.api.processor.Processor;
@@ -99,7 +99,7 @@ public class PipelineMessageNotificationTestCase extends AbstractReactiveProcess
                                                                           .thenReturn(errorType);
     when(muleContext.getErrorTypeLocator()).thenReturn(errorTypeLocator);
     when(muleContext.getErrorTypeRepository().getErrorType(UNKNOWN)).thenReturn(Optional.of(mock(ErrorType.class)));
-    when(muleContext.getTransformationService()).thenReturn(new TransformationService(muleContext));
+    when(muleContext.getTransformationService()).thenReturn(new DefaultTransformationService(muleContext));
   }
 
   public void createTestPipeline(List<Processor> processors, ErrorHandler errorHandler) {

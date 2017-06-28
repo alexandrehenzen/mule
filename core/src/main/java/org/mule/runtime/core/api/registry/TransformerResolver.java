@@ -40,7 +40,7 @@ public interface TransformerResolver {
    * an exception must NOT be thrown.
    *
    * @param source information about the source object including the object iself
-   * @param result information about the result object to transform to
+   * @param result information about the result object to internalTransform to
    * @return a transformer from the registry that matches the criteria or null if a transformer was not found
    * @throws ResolverException Only thrown if an exception is thrown during the search, this exception will just be a wrapper
    */

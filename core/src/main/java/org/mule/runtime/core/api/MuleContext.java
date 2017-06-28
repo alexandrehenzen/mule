@@ -24,7 +24,7 @@ import org.mule.runtime.core.api.execution.ExceptionContextProvider;
 import org.mule.runtime.core.api.extension.ExtensionManager;
 import org.mule.runtime.core.api.interception.ProcessorInterceptorProvider;
 import org.mule.runtime.core.api.lifecycle.LifecycleManager;
-import org.mule.runtime.core.api.locator.ConfigurationComponentLocator;
+import org.mule.runtime.api.component.location.ConfigurationComponentLocator;
 import org.mule.runtime.core.api.registry.MuleRegistry;
 import org.mule.runtime.core.api.registry.RegistrationException;
 import org.mule.runtime.core.api.registry.Registry;
@@ -210,7 +210,7 @@ public interface MuleContext extends Lifecycle {
    * @return a {@link org.mule.runtime.core.api.util.StreamCloserService}
    * @since 3.5.0
    */
-  public StreamCloserService getStreamCloserService();
+  StreamCloserService getStreamCloserService();
 
   /**
    * @deprecated as of 3.7.0. This will be removed in Mule 4.0
@@ -281,7 +281,7 @@ public interface MuleContext extends Lifecycle {
 
   /**
    * @return default exception strategy. If no default error handler was configured it returns one with a catch all
-   * <on-error-propagate> element.
+   *         <on-error-propagate> element.
    */
   MessagingExceptionHandler getDefaultErrorHandler();
 
@@ -344,20 +344,20 @@ public interface MuleContext extends Lifecycle {
   Collection<ExceptionContextProvider> getExceptionContextProviders();
 
   /**
-   * Gets application wide instance of {@link TransformationService} used for applying
+   * Gets application wide instance of {@link DefaultTransformationService} used for applying
    * {@link org.mule.runtime.core.api.transformer.Transformer}'s to a {@link Message} and for obtaining different representations
    * of the message payload.
    *
    * @return transformation service
    */
-  TransformationService getTransformationService();
+  DefaultTransformationService getTransformationService();
 
   /**
-   * Sets application wide instance of {@link TransformationService}
+   * Sets application wide instance of {@link DefaultTransformationService}
    *
    * @param transformationService transformation service instance
    */
-  void setTransformationService(TransformationService transformationService);
+  void setTransformationService(DefaultTransformationService transformationService);
 
   /**
    * @return {@link BootstrapServiceDiscoverer} used to bootstrap this {@link MuleContext}

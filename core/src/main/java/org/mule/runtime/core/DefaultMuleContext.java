@@ -64,7 +64,7 @@ import org.mule.runtime.core.api.Event;
 import org.mule.runtime.core.api.Injector;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.SingleResourceTransactionFactoryManager;
-import org.mule.runtime.core.api.TransformationService;
+import org.mule.runtime.core.api.DefaultTransformationService;
 import org.mule.runtime.core.api.client.MuleClient;
 import org.mule.runtime.core.api.config.MuleConfiguration;
 import org.mule.runtime.core.api.connector.ConnectException;
@@ -82,7 +82,7 @@ import org.mule.runtime.core.api.execution.ExceptionContextProvider;
 import org.mule.runtime.core.api.extension.ExtensionManager;
 import org.mule.runtime.core.api.interception.ProcessorInterceptorProvider;
 import org.mule.runtime.core.api.lifecycle.LifecycleManager;
-import org.mule.runtime.core.api.locator.ConfigurationComponentLocator;
+import org.mule.runtime.api.component.location.ConfigurationComponentLocator;
 import org.mule.runtime.core.api.registry.MuleRegistry;
 import org.mule.runtime.core.api.registry.RegistrationException;
 import org.mule.runtime.core.api.registry.Registry;
@@ -238,7 +238,7 @@ public class DefaultMuleContext implements MuleContext {
   private volatile Collection<ExceptionContextProvider> exceptionContextProviders;
   private Object exceptionContextProvidersLock = new Object();
 
-  private TransformationService transformationService;
+  private DefaultTransformationService transformationService;
 
   private BootstrapServiceDiscoverer bootstrapServiceDiscoverer;
 
@@ -274,7 +274,7 @@ public class DefaultMuleContext implements MuleContext {
   }
 
   public DefaultMuleContext() {
-    transformationService = new TransformationService(this);
+    transformationService = new DefaultTransformationService(this);
   }
 
   @Override
@@ -530,10 +530,9 @@ public class DefaultMuleContext implements MuleContext {
    * Fires a server notification to all registered
    * {@link org.mule.runtime.core.api.context.notification.CustomNotificationListener} notificationManager.
    *
-   * @param notification the notification to fire. This must be of type
-   *        {@link CustomNotification} otherwise an exception will be thrown.
-   * @throws UnsupportedOperationException if the notification fired is not a
-   *         {@link CustomNotification}
+   * @param notification the notification to fire. This must be of type {@link CustomNotification} otherwise an exception will be
+   *        thrown.
+   * @throws UnsupportedOperationException if the notification fired is not a {@link CustomNotification}
    */
   @Override
   public void fireNotification(ServerNotification notification) {
@@ -1017,7 +1016,7 @@ public class DefaultMuleContext implements MuleContext {
   }
 
   @Override
-  public TransformationService getTransformationService() {
+  public DefaultTransformationService getTransformationService() {
     if (transformationService == null) {
       transformationService = getRegistry().get(OBJECT_TRANSFORMATION_SERVICE);
     }
@@ -1025,7 +1024,7 @@ public class DefaultMuleContext implements MuleContext {
   }
 
   @Override
-  public void setTransformationService(TransformationService transformationService) {
+  public void setTransformationService(DefaultTransformationService transformationService) {
     this.transformationService = transformationService;
   }
 

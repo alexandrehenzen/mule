@@ -89,7 +89,7 @@ public class RegExFilter implements Filter, ObjectFilter, MuleContextAware, Init
         return accept(value.resolveValue(event));
       } else {
         final Message transformedMessage =
-            muleContext.getTransformationService().transform(event.getMessage(), DataType.STRING);
+            muleContext.getTransformationService().internalTransform(event.getMessage(), DataType.STRING);
         // If the payload is a stream and we've consumed it, then we should set the payload on the message. This is the only time
         // this method will alter the payload on the message.
         // TODO MULE-9142 See how this API can be improved to not need the builder.

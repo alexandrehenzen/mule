@@ -45,7 +45,7 @@ public interface Processor extends ReactiveProcessor {
    * <li>drop events if invocation of {@link #process(Event)} returns null.</li>
    * </ol>
    *
-   * @param publisher the event stream to transform
+   * @param publisher the event stream to internalTransform
    * @return the transformed event stream
    */
   @Override
