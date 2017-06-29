@@ -1595,7 +1595,7 @@ public class CoreComponentBuildingDefinitionProvider implements ComponentBuildin
         .withSetterParameterDefinition("actionAsString", fromSimpleParameter("action").build())
         .withSetterParameterDefinition("interactWithExternal", fromSimpleParameter("interactWithExternal").build())
         .build());
-    
+
     buildingDefinitions.add(baseDefinition.copy()
         .withIdentifier("environment")
         .withTypeDefinition(fromType(Map.class))
