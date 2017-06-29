@@ -6,17 +6,11 @@
  */
 package org.mule.runtime.module.extension.internal.loader.java.type;
 
-import java.util.List;
-
 /**
- * A contract for an element from which an Extension can be derived
+ * A contract for a element from which operation container can be derived
  *
  * @since 4.0
  */
-public interface ExtensionElement extends ParameterizableTypeElement, ComponentElement, WithOperations, WithFunctions {
+public interface FunctionContainerElement extends Type, WithFunctions {
 
-  /**
-   * @return A list {@link ConfigurationElement} of declared configurations
-   */
-  List<ConfigurationElement> getConfigurations();
 }

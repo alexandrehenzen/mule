@@ -12,10 +12,15 @@ import static org.mule.runtime.api.util.Preconditions.checkArgument;
 import static org.mule.runtime.core.api.util.collection.Collectors.toImmutableList;
 import static org.mule.runtime.module.extension.internal.util.IntrospectionUtils.getParameterClasses;
 import static org.mule.runtime.module.extension.internal.util.MuleExtensionUtils.getClassLoader;
+import org.mule.runtime.api.el.BindingContext;
+import org.mule.runtime.api.el.ExpressionModule;
+import org.mule.runtime.api.el.ModuleNamespace;
 import org.mule.runtime.api.exception.MuleException;
 import org.mule.runtime.api.exception.MuleRuntimeException;
 import org.mule.runtime.api.meta.model.ExtensionModel;
 import org.mule.runtime.api.meta.model.config.ConfigurationModel;
+import org.mule.runtime.api.metadata.TypedValue;
+import org.mule.runtime.core.api.el.GlobalBindingContextProvider;
 import org.mule.runtime.core.api.registry.MuleRegistry;
 import org.mule.runtime.core.api.registry.RegistrationException;
 import org.mule.runtime.core.transformer.simple.StringToEnum;
@@ -99,6 +104,20 @@ final class ExtensionRegistry {
             }
           }
         });
+
+    if (!extensionModel.getFunctionModels().isEmpty() || extensionModel.getConfigurationModels().stream().anyMatch(c -> !c.getFunctionModels().isEmpty())){
+      ExpressionModule.Builder expressionModule = ExpressionModule.builder(new ModuleNamespace(extensionModel.getXmlDslModel().getPrefix()));
+      extensionModel.getFunctionModels()
+        .forEach(f -> {
+          expressionModule.addBinding(f.getName(), )
+        });
+      try {
+        registry.registerObject("", (GlobalBindingContextProvider) () -> BindingContext.builder().addModule(expressionModule);
+        .addBinding("times", new TypedValue<>(new, fromFunction(multiply))));
+      } catch (RegistrationException e) {
+        e.printStackTrace();
+      }
+    }
   }
 
   /**
