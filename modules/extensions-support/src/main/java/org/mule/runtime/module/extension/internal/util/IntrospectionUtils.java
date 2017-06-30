@@ -78,9 +78,9 @@ import org.mule.runtime.extension.internal.property.LiteralModelProperty;
 import org.mule.runtime.module.extension.internal.loader.java.MuleExtensionAnnotationParser;
 import org.mule.runtime.module.extension.internal.loader.java.property.DeclaringMemberModelProperty;
 import org.mule.runtime.module.extension.internal.loader.java.property.ImplementingParameterModelProperty;
+import org.mule.runtime.module.extension.internal.loader.java.property.ParameterGroupModelProperty;
 import org.mule.runtime.module.extension.internal.loader.java.property.ParameterResolverTypeModelProperty;
 import org.mule.runtime.module.extension.internal.loader.java.property.TypedValueTypeModelProperty;
-
 import com.google.common.collect.ImmutableList;
 import org.springframework.core.ResolvableType;
 
@@ -106,6 +106,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
@@ -894,6 +895,39 @@ public final class IntrospectionUtils {
     } else {
       throw new IllegalArgumentException("Unknown container type");
     }
+  }
+
+  public static String getGroupModelContainerName(ParameterGroupModel groupModel) {
+    return groupModel.getModelProperty(ParameterGroupModelProperty.class)
+        .map(modelProperty -> getContainerName(modelProperty.getDescriptor().getContainer()))
+        .orElse(groupModel.getName());
+  }
+
+  public static String getRealName(ParameterDeclaration parameterDeclaration) {
+    return getRealName(parameterDeclaration.getName(),
+                       () -> parameterDeclaration.getModelProperty(ImplementingParameterModelProperty.class),
+                       () -> parameterDeclaration.getModelProperty(DeclaringMemberModelProperty.class));
+  }
+
+  public static String getRealName(ParameterModel parameterModel) {
+    return getRealName(parameterModel.getName(), () -> parameterModel.getModelProperty(ImplementingParameterModelProperty.class),
+                       () -> parameterModel.getModelProperty(DeclaringMemberModelProperty.class));
+  }
+
+  private static String getRealName(String originalName,
+                                    Supplier<Optional<ImplementingParameterModelProperty>> implementingParameter,
+                                    Supplier<Optional<DeclaringMemberModelProperty>> declaringMember) {
+    Optional<ImplementingParameterModelProperty> parameter = implementingParameter.get();
+    if (parameter.isPresent()) {
+      return parameter.get().getParameter().getName();
+    }
+
+    Optional<DeclaringMemberModelProperty> field = declaringMember.get();
+    if (field.isPresent()) {
+      return field.get().getDeclaringField().getName();
+    }
+
+    return originalName;
   }
 
   public static boolean isParameterResolver(Set<ModelProperty> modelProperties) {

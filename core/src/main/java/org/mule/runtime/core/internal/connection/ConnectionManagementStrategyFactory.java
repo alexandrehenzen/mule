@@ -91,6 +91,7 @@ final class ConnectionManagementStrategyFactory {
     return type;
   }
 
+  //TODO REUSE
   private <C> ConnectionProvider<C> unwrap(ConnectionProvider<C> connectionProvider) {
     return connectionProvider instanceof ConnectionProviderWrapper
         ? unwrap(((ConnectionProviderWrapper) connectionProvider).getDelegate()) : connectionProvider;
