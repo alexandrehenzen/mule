@@ -25,7 +25,7 @@ public class IronMan {
 
   public static final String CONFIG_NAME = "iron-man";
 
-  @Path
+  @Path(acceptsUrls = true)
   @Parameter
   @Optional
   private String ironManConfigFile;

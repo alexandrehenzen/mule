@@ -154,6 +154,7 @@ public class DisplayDeclarationEnricherTestCase extends AbstractMuleTestCase {
     Optional<PathModel> pathModel = pathParam.getDisplayModel().getPathModel();
     assertThat(pathModel.isPresent(), is(true));
     assertThat(pathModel.get().isDirectory(), is(false));
+    assertThat(pathModel.get().acceptsUrls(), is(false));
     assertThat(pathModel.get().getFileExtensions(), hasItem("xml"));
   }
 
@@ -170,6 +171,7 @@ public class DisplayDeclarationEnricherTestCase extends AbstractMuleTestCase {
     Optional<PathModel> pathModel = pathParam.getDisplayModel().getPathModel();
     assertThat(pathModel.isPresent(), is(true));
     assertThat(pathModel.get().isDirectory(), is(true));
+    assertThat(pathModel.get().acceptsUrls(), is(false));
     assertThat(pathModel.get().getFileExtensions(), empty());
   }
 
@@ -185,6 +187,7 @@ public class DisplayDeclarationEnricherTestCase extends AbstractMuleTestCase {
     Optional<PathModel> pathModel = pathParam.getDisplayModel().getPathModel();
     assertThat(pathModel.isPresent(), is(true));
     assertThat(pathModel.get().isDirectory(), is(false));
+    assertThat(pathModel.get().acceptsUrls(), is(true));
     assertThat(pathModel.get().getFileExtensions(), empty());
   }
 
