@@ -1788,7 +1788,7 @@
                 }
               },
               "hasDynamicType": false,
-              "required": true,
+              "required": false,
               "isConfigOverride": false,
               "expressionSupport": "SUPPORTED",
               "role": "BEHAVIOUR",
@@ -1806,7 +1806,7 @@
               "name": "ironManConfigFile",
               "displayModel": {
                 "pathModel": {
-                  "isDir": false,
+                  "isDirectory": false,
                   "fileExtensions": []
                 }
               },
@@ -2045,7 +2045,7 @@
                     }
                   },
                   "hasDynamicType": false,
-                  "required": true,
+                  "required": false,
                   "isConfigOverride": false,
                   "expressionSupport": "SUPPORTED",
                   "role": "BEHAVIOUR",
@@ -2063,7 +2063,7 @@
                   "name": "missileConfigurationDirectory",
                   "displayModel": {
                     "pathModel": {
-                      "isDir": true,
+                      "isDirectory": true,
                       "fileExtensions": []
                     }
                   },
@@ -2241,7 +2241,7 @@
                     }
                   },
                   "hasDynamicType": false,
-                  "required": true,
+                  "required": false,
                   "isConfigOverride": false,
                   "expressionSupport": "SUPPORTED",
                   "role": "BEHAVIOUR",
@@ -2259,7 +2259,7 @@
                   "name": "missileConfigurationDirectory",
                   "displayModel": {
                     "pathModel": {
-                      "isDir": true,
+                      "isDirectory": true,
                       "fileExtensions": []
                     }
                   },
@@ -2471,7 +2471,7 @@
                 }
               },
               "hasDynamicType": false,
-              "required": true,
+              "required": false,
               "isConfigOverride": false,
               "expressionSupport": "SUPPORTED",
               "role": "BEHAVIOUR",
@@ -2489,7 +2489,7 @@
               "name": "instructionsFile",
               "displayModel": {
                 "pathModel": {
-                  "isDir": false,
+                  "isDirectory": false,
                   "fileExtensions": [
                     "xml"
                   ]
@@ -2770,8 +2770,7 @@
       "fields": [
         {
           "key": {
-            "name": "ironManConfigFile",
-            "required": "true"
+            "name": "ironManConfigFile"
           },
           "model": {
             "type": "String",
@@ -2789,7 +2788,7 @@
             "org.mule.runtime.extension.api.declaration.type.annotation.DisplayTypeAnnotation": {
               "displayModel": {
                 "pathModel": {
-                  "isDir": false,
+                  "isDirectory": false,
                   "fileExtensions": []
                 }
               }
